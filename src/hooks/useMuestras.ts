@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { type Muestra } from '../types/muestra';        // Importamos el archivo de datos
+import { type Muestra } from '../types/muestra';                // Importamos el archivo de datos
 
 export const useMuestras = () => { 
     /*
@@ -26,7 +26,7 @@ export const useMuestras = () => {
     1. Función para añadir una muestra nueva a la lista
    */
   const agregarMuestra = (nueva: Muestra) => {
-    setMuestras([...muestras, nueva]);                         // Copiamos la lista anterior y pegamos la nueva
+    setMuestras([...muestras, nueva]);                          // Copiamos la lista anterior y pegamos la nueva
   };
 
    /*
