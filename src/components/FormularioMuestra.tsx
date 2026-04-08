@@ -1,69 +1,80 @@
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 import { useMuestras }     from '../hooks/useMuestras';
 import { type TipoEstudio } from '../types/muestra';
 import './FormularioMuestra.css';
 
 export const FormularioMuestra = () => {
-  // 1. Conectamos con nuestro "cerebro" de datos
   const { agregarMuestra } = useMuestras();
-
-  // 2. Estados locales para capturar la escritura del técnico
-  const [pacienteId, setPacienteId]   = useState('');
-  const [tipo, setTipo]               = useState<TipoEstudio>('Biopsia');
+  const [pacienteId, setPacienteId] = useState('');
+  const [tipo, setTipo] = useState<TipoEstudio>('Biopsia');
   const [descripcion, setDescripcion] = useState('');
 
-  // 3. Manejador del envío del formulario
+  // 2. Función configurada con la identidad GPath
+  const lanzarAlerta = (icono: 'success' | 'error' | 'warning', titulo: string, texto: string) => {
+    Swal.fire({
+      title: titulo,
+      text: texto,
+      icon: icono,
+      confirmButtonColor: '#03045E', // Tu color Crepúsculo Profundo
+      iconColor: '#00B4D8', // Tu color Turquesa Surf
+      background: '#ffffff',
+      color: '#03045E',
+      customClass: {
+        popup: 'sweet-font', // Clase para aplicar Alphazet
+      }
+    });
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validación básica: que no haya campos vacíos
     if (!pacienteId.trim() || !descripcion.trim()) {
-      alert("Por favor, complete todos los campos antes de registrar.");
+      lanzarAlerta('warning', 'Campos incompletos', 'Por favor, rellena toda la información técnica.');
       return;
     }
 
-    // Creamos el objeto de la muestra con identidad GPath
-    const nuevaMuestra = {
-      id: crypto.randomUUID(), // Generamos ID único e irrepetible
+    agregarMuestra({
+      id: crypto.randomUUID(),
       pacienteId,
       tipoEstudio: tipo,
       descripcion,
-      fechaRegistro: new Date().toLocaleString() // Estampa de tiempo local
-    };
+      fechaRegistro: new Date().toLocaleString()
+    });
 
-    // Guardamos en la "memoria" y en el LocalStorage
-    agregarMuestra(nuevaMuestra);
+    // Éxito
+    lanzarAlerta('success', '¡Registro Exitoso!', 'La muestra ha sido almacenada correctamente.');
 
-    // Limpiamos los campos para el siguiente registro
     setPacienteId('');
     setDescripcion('');
     setTipo('Biopsia');
-    
-    alert("Muestra registrada exitosamente en el sistema.");
   };
 
   return (
     <div className="form-container">
+      <h2 className="form-title">Registro de Muestra</h2>
+      
       <form onSubmit={handleSubmit}>
-        <h2 className="form-title">Registro de Muestra</h2>
-
-        {/* Campo: ID Paciente */}
-        <div className="form-group">
-          <label className="form-label">ID del Paciente</label>
+        
+        {/* Campo ID Paciente */}
+        <div className="group">
           <input 
-            className="form-input"
-            type="text"
+            required
+            type="text" 
+            className="input" 
             value={pacienteId}
             onChange={(e) => setPacienteId(e.target.value)}
-            placeholder="Ingrese ID (Ej: P-2024)"
           />
+          <span className="highlight"></span>
+          <span className="bar"></span>
+          <label>ID del Paciente</label>
         </div>
 
-        {/* Campo: Tipo de Estudio */}
-        <div className="form-group">
-          <label className="form-label">Tipo de Estudio</label>
+        {/* Campo Tipo de Estudio (Dropdown adaptado) */}
+        <div className="group">
           <select 
-            className="form-select"
+            required
+            className="input"
             value={tipo}
             onChange={(e) => setTipo(e.target.value as TipoEstudio)}
           >
@@ -71,20 +82,24 @@ export const FormularioMuestra = () => {
             <option value="Citología">Citología</option>
             <option value="Inmunohistoquímica">Inmunohistoquímica</option>
           </select>
+          <span className="highlight"></span>
+          <span className="bar"></span>
+          <label>Tipo de Estudio</label>
         </div>
 
-        {/* Campo: Descripción */}
-        <div className="form-group">
-          <label className="form-label">Descripción Médica</label>
+        {/* Campo Descripción */}
+        <div className="group">
           <textarea 
-            className="form-textarea"
+            required
+            className="input" 
             value={descripcion}
             onChange={(e) => setDescripcion(e.target.value)}
-            placeholder="Detalles técnicos de la muestra..."
           />
+          <span className="highlight"></span>
+          <span className="bar"></span>
+          <label>Descripción Médica</label>
         </div>
 
-        {/* Botón de Acción */}
         <button type="submit" className="form-button">
           Registrar Muestra
         </button>
