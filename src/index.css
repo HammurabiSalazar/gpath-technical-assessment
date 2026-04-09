@@ -1,3 +1,4 @@
+/* --- IMPORTACIÓN DE FUENTES LOCALES --- */
 @font-face {
   font-family: 'Alphazet';
   src: url('./assets/fonts/Alphazet-Light.otf') format('opentype');
@@ -10,6 +11,7 @@
   font-weight: 600;
 }
 
+/* --- VARIABLES GLOBALES DE COLOR --- */
 :root {
   --crepusculo: #03045E;
   --azul-verdoso: #0077B6;
@@ -18,11 +20,13 @@
   --cian-claro: #CAF0F8;
 }
 
+/* --- CONFIGURACIÓN BASE GLOBAL --- */
 * {
   font-family: 'Alphazet', sans-serif !important;
   box-sizing: border-box;
 }
 
+/* ---TIPOGRAFÍA PARA LOS ALERTS --- */
 .sweet-font {
   font-family: 'Alphazet', sans-serif !important;
 }

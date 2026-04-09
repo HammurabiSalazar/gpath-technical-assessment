@@ -7,19 +7,21 @@ import logoGpath from './assets/Logo-gpath.png';
 import './App.css';
 
 function App() {
-  // --- ESTADO GLOBAL: Muestras y visibilidad del formulario ---
+  // --- ESTADOS GLOBALES ---
   const [muestras, setMuestras] = useState<Muestra[]>(() => {
-    const guardadas = localStorage.getItem('gpath_muestras');
-    return guardadas ? JSON.parse(guardadas) : [];
+    const guardadas = localStorage.getItem('gpath_muestras');                           // Recuperación de datos previos almacenados
+    return guardadas ? JSON.parse(guardadas) : [];                                     // Conversión de datos recuperados o arreglo vacío inicial
   });
-  const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);                 // Control de visibilidad del modal de registro
 
-  // --- PERSISTENCIA: Guarda en LocalStorage automáticamente ---
+  // --- PERSISTENCIA DE DATOS ---
   useEffect(() => {
-    localStorage.setItem('gpath_muestras', JSON.stringify(muestras));
+    localStorage.setItem('gpath_muestras', JSON.stringify(muestras));             // Actualización automática del almacenamiento local
   }, [muestras]);
 
-  // --- LÓGICA: Agregar nueva muestra ---
+  // --- CONTROLADORES DE ACCIÓN ---
+
+  /* Función para registrar nueva muestra */
   const agregarMuestra = (datos: Omit<Muestra, 'id' | 'fechaRegistro'>) => {
     const nueva: Muestra = {
       ...datos,
@@ -28,35 +30,38 @@ function App() {
     };
     setMuestras([nueva, ...muestras]);
     setMostrarFormulario(false); 
-    Swal.fire({
-    title: '¡Muestra Registrada!',
-    text: 'El registro se ha guardado exitosamente en el sistema.',
-    icon: 'success',
-    confirmButtonColor: '#03045E', // Nuestro azul Crepúsculo
-    timer: 2500, // Se cierra sola en 2.5 segundos
-    timerProgressBar: true,
-    customClass: {
-      popup: 'modal-card-swal', // Reutilizamos la clase que ya definimos
-      title: 'form-title-swal'
-    }
-  });
+    
 
+    //SweetAlert para confirmación de registro exitoso
+    Swal.fire({
+      title: '¡Muestra Registrada!',
+      text: 'El registro se ha guardado exitosamente en el sistema.',
+      icon: 'success',
+      confirmButtonColor: '#03045E', 
+      timer: 2500, 
+      timerProgressBar: true,
+      customClass: {
+        popup: 'modal-card-swal', 
+        title: 'form-title-swal'
+      }
+    });
   };
 
-  // --- LÓGICA: Eliminar registro ---
+  /* Función para eliminar registro por ID */
   const eliminarMuestra = (id: string) => {
     setMuestras(muestras.filter(m => m.id !== id));
   };
 
-  // --- LÓGICA: Actualizar registro existente ---
+  /* Función para actualizar registro por ID */
   const actualizarMuestra = (id: string, datos: Partial<Muestra>) => {
     setMuestras(muestras.map(m => m.id === id ? { ...m, ...datos } : m));
   };
 
+  // --- RENDERIZADO DE  ---
   return (
     <div className="main-layout">
       
-      {/* 1. CABECERA: Logo e información del sistema con diseño inclinado */}
+      {/* CABECERA */}
       <header className="top-nav">
         <div className="logo-box">
           <img src={logoGpath} alt="Logo" className="logo-img" />
@@ -69,9 +74,10 @@ function App() {
         </div>
       </header>
 
+      {/* CONTENEDOR CENTRAL */}
       <main className="container">
         
-        {/* 2. BARRA DE TÍTULO: Título de sección y botón de añadir (Lupa eliminada) */}
+        {/* BARRA DE ACCIÓN */}
         <div className="action-bar">
           <h1 className="title">Registro De Muestras</h1>
           <div className="button-group">
@@ -90,14 +96,14 @@ function App() {
           </div>
         </div>
 
-        {/* 3. ÁREA DE CONTENIDO: Visualización de la tabla principal */}
-          <ListaMuestras 
-            muestras={muestras} 
-            onEliminar={eliminarMuestra} 
-            onActualizar={actualizarMuestra} 
-          />
+        {/* TABLA DE DATOS */}
+        <ListaMuestras 
+          muestras={muestras} 
+          onEliminar={eliminarMuestra} 
+          onActualizar={actualizarMuestra} 
+        />
 
-        {/* 4. MODAL/OVERLAY: Formulario emergente para registro */}
+        {/* MODAL DE FORMULARIO */}
         {mostrarFormulario && (
           <div className="modal-overlay">
             <div className="modal-card">

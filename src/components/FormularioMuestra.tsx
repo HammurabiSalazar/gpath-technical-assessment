@@ -1,25 +1,31 @@
-// src/components/FormularioMuestra.tsx
 import { useForm } from 'react-hook-form';
 import type { Muestra } from '../types/muestra';
 import './FormularioMuestra.css';
 
+// --- INTERFACES ---
 interface Props {
-  onAgregar: (datos: Omit<Muestra, 'id' | 'fechaRegistro'>) => void;
+  onAgregar: (datos: Omit<Muestra, 'id' | 'fechaRegistro'>) => void; // Función requerida para inyectar datos al estado global
 }
 
+// --- COMPONENTE PRINCIPAL ---
 export const FormularioMuestra = ({ onAgregar }: Props) => {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<Omit<Muestra, 'id' | 'fechaRegistro'>>();
+  
+  // --- ESTADO DE FORMULARIO ---
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<Omit<Muestra, 'id' | 'fechaRegistro'>>(); // Inicialización y validación estricta con react-hook-form
 
+  // --- CONTROLADORES DE ACCIÓN ---
+  /* Función para procesar y limpiar el formulario exitosamente */
   const onSubmit = (data: any) => {
     onAgregar(data);
     reset();
   };
 
+  // --- RENDERIZADO PRINCIPAL ---
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form-container">
       <h2 className="form-title">Registrar Muestra</h2>
 
-      {/* ID PACIENTE */}
+      {/* CAMPO: ID DE PACIENTE */}
       <div className="group">
         <input 
           {...register("pacienteId", { 
@@ -34,13 +40,13 @@ export const FormularioMuestra = ({ onAgregar }: Props) => {
         {errors.pacienteId && <span className="error-msg">{errors.pacienteId.message}</span>}
       </div>
 
-      {/* TIPO ESTUDIO */}
+      {/* CAMPO: TIPO DE ESTUDIO */}
       <div className="group">
         <select 
           {...register("tipoEstudio", { required: "Selecciona un estudio" })}
           className="input"
         >
-          <option value="" hidden></option> {/* Opción oculta para manejar el label */}
+          <option value="" hidden></option>
           <option value="Biopsia">Biopsia</option>
           <option value="Citología">Citología</option>
           <option value="Inmunohistoquímica">Inmunohistoquímica</option>
@@ -50,7 +56,7 @@ export const FormularioMuestra = ({ onAgregar }: Props) => {
         {errors.tipoEstudio && <span className="error-msg">{errors.tipoEstudio.message}</span>}
       </div>
 
-      {/* DESCRIPCIÓN */}
+      {/* CAMPO: DESCRIPCIÓN */}
       <div className="group">
         <textarea 
           {...register("descripcion", { 
@@ -59,13 +65,14 @@ export const FormularioMuestra = ({ onAgregar }: Props) => {
           })}
           className="input textarea"
           rows={3}
-          placeholder=" " // Espacio vital para la animación
+          placeholder=" " 
         />
         <span className="bar"></span>
         <label className="label-gpath">Descripción de la Muestra</label>
         {errors.descripcion && <span className="error-msg">{errors.descripcion.message}</span>}
       </div>
 
+      {/* ACCIÓN DE ENVÍO */}
       <button type="submit" className="form-button">Guardar en Laboratorio</button>
     </form>
   );

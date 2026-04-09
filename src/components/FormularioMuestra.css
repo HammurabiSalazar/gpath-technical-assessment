@@ -1,15 +1,17 @@
-/* 1. FUENTES Y VARIABLES */
+/* --- IMPORTACIÓN DE FUENTES LOCALES --- */
 @font-face {
   font-family: 'Alphazet';
   src: url('../assets/fonts/Alphazet-Light.otf') format('opentype');
   font-weight: 300;
 }
+
 @font-face {
   font-family: 'Alphazet';
   src: url('../assets/fonts/Alphazet-SemiBold.otf') format('opentype');
   font-weight: 600;
 }
 
+/* --- VARIABLES GLOBALES DE COLOR --- */
 :root {
   --crepusculo: #03045E;
   --azul-verdoso: #0077B6;
@@ -18,7 +20,7 @@
   --cian-claro: #CAF0F8;
 }
 
-/* 2. CONTENEDOR PRINCIPAL */
+/* --- CONTENEDOR PRINCIPAL --- */
 .form-container {
   background: transparent;
   padding: 10px 20px;
@@ -34,7 +36,7 @@
   font-weight: 600;
 }
 
-/* 3. GRUPOS Y ETIQUETAS FLOTANTES */
+/* --- GRUPOS Y ETIQUETAS FLOTANTES --- */
 .group {
   position: relative;
   margin-bottom: 35px;
@@ -57,7 +59,6 @@
   outline: none;
 }
 
-/* Estilo de la etiqueta (Label) */
 .group label {
   color: #999;
   font-size: 16px;
@@ -69,7 +70,6 @@
   transition: 0.3s ease all;
 }
 
-/* LÓGICA DE FLOTACIÓN: Al enfocar o al tener texto */
 .input:focus ~ label, 
 .input:not(:placeholder-shown) ~ label {
   top: -20px;
@@ -78,14 +78,15 @@
   font-weight: 600;
 }
 
-/* 4. BARRA INFERIOR ANIMADA */
+/* --- ANIMACIÓN DE BARRA INFERIOR --- */
 .bar {
   position: relative;
   display: block;
   width: 100%;
 }
 
-.bar:before, .bar:after {
+.bar:before, 
+.bar:after {
   content: '';
   height: 2px;
   width: 0;
@@ -95,15 +96,20 @@
   transition: 0.3s ease all;
 }
 
-.bar:before { left: 50%; }
-.bar:after { right: 50%; }
+.bar:before { 
+  left: 50%; 
+}
+
+.bar:after { 
+  right: 50%; 
+}
 
 .input:focus ~ .bar:before, 
 .input:focus ~ .bar:after {
   width: 50%;
 }
 
-/* 5. BOTÓN Y ERRORES */
+/* --- BOTÓN Y MENSAJES DE ERROR --- */
 .form-button {
   width: 100%;
   padding: 14px;
@@ -132,6 +138,12 @@
   display: block;
 }
 
-/* SWEETALERT CUSTOMS */
-.swal2-container { font-family: 'Alphazet', sans-serif !important; }
-.swal2-title { font-weight: 600 !important; color: var(--crepusculo) !important; }
+/* --- ESTILOS DE SWEETALERT --- */
+.swal2-container { 
+  font-family: 'Alphazet', sans-serif !important; 
+}
+
+.swal2-title { 
+  font-weight: 600 !important; 
+  color: var(--crepusculo) !important; 
+}

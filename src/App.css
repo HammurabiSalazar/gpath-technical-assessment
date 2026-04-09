@@ -44,7 +44,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Trapezoide constante */
   clip-path: polygon(80px 0, 100% 0, 100% 100%, 0% 100%);
   transition: all 0.3s ease;
 }
@@ -55,28 +54,41 @@
   align-items: center;
 }
 
-.info-text { font-size: 20px; font-weight: 600; letter-spacing: 1px; }
-.info-subtitle { font-size: 14px; font-weight: 300; opacity: 0.9; }
+.info-text {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.info-subtitle {
+  font-size: 14px;
+  font-weight: 300;
+  opacity: 0.9;
+}
 
 /* --- CONTENEDOR Y BARRA DE ACCIÓN --- */
 .container {
-  max-width: 1700px; 
-  width: 95%;        /* Asegura que en pantallas medianas ocupe casi todo el ancho */
-  margin: 0 auto;    /* Centra el bloque de contenido */
-  padding: 0 30px;   /* Reducimos el margen interno para ganar espacio horizontal */
+  max-width: 1700px;
+  width: 95%;
+  margin: 0 auto;
+  padding: 0 30px;
   transition: all 0.3s ease;
 }
 
 .action-bar {
   display: flex;
-  /* SEPARACIÓN DEFINITIVA: Título a la izquierda, botón a la derecha */
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
   margin-top: 40px;
   margin-bottom: 25px;
 }
 
-.title { font-size: 28px; color: #000; font-weight: 600; margin: 0; }
+.title {
+  font-size: 28px;
+  color: #000;
+  font-weight: 600;
+  margin: 0;
+}
 
 /* --- BOTÓN AÑADIR --- */
 .btn-add-simple {
@@ -89,62 +101,105 @@
   color: #fff;
 }
 
-.btn-add-simple span { display: flex; align-items: center; gap: 8px; font-weight: 600; }
-.btn-add-simple:hover { background-color: #0071e2; border-color: #0071e2; }
+.btn-add-simple span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.btn-add-simple:hover {
+  background-color: #0071e2;
+  border-color: #0071e2;
+}
 
 /* --- MODAL Y ANIMACIONES --- */
 .modal-overlay {
   position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(3, 4, 94, 0.4);
   backdrop-filter: blur(4px);
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 1000;
   animation: fadeIn 0.3s ease;
 }
 
 .modal-card {
-  background: white; padding: 40px; border-radius: 24px;
-  position: relative; width: 90%; max-width: 450px;
+  background: white;
+  padding: 40px;
+  border-radius: 24px;
+  position: relative;
+  width: 90%;
+  max-width: 450px;
   box-shadow: 0 20px 50px rgba(3, 4, 94, 0.15);
   animation: slideUp 0.4s ease;
 }
 
 .btn-close {
-  position: absolute; top: 20px; left: 20px;
-  background: #f1f5f9; border: none; width: 30px; height: 30px;
-  border-radius: 8px; cursor: pointer; color: #64748b;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: #f1f5f9;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #64748b;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  from { transform: translateY(30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* --- RESPONSIVIDAD APP --- */
 @media (max-width: 1200px) {
-  .container { padding: 0 20px; }
+  .container {
+    padding: 0 20px;
+  }
   
-  .top-nav { height: auto; flex-direction: column; }
+  .top-nav {
+    height: auto;
+    flex-direction: column;
+  }
   
-  .logo-box { padding: 15px; justify-content: center; }
+  .logo-box {
+    padding: 15px;
+    justify-content: center;
+  }
   
-  .gray-info { 
-    width: 100%; padding: 15px 0;
-    clip-path: none; 
+  .gray-info {
+    width: 100%;
+    padding: 15px 0;
+    clip-path: none;
   }
 
-  /* MANTENEMOS FILA: Evita que el botón se pegue al título o se baje solo */
-  .action-bar { 
-    flex-direction: row; 
-    justify-content: space-between; 
-    flex-wrap: wrap; 
-    gap: 15px; 
-    align-items: center; 
+  .action-bar {
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
   }
 }

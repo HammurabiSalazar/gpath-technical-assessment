@@ -5,16 +5,20 @@ import { faPencilAlt, faTrashAlt, faSearch } from '@fortawesome/free-solid-svg-i
 import Swal from 'sweetalert2';
 import './ListaMuestras.css';
 
+// --- INTERFACES ---
 interface Props {
   muestras: Muestra[];
   onEliminar: (id: string) => void;
   onActualizar: (id: string, datos: Partial<Muestra>) => void;
 }
 
+// --- COMPONENTE PRINCIPAL ---
 export const ListaMuestras: React.FC<Props> = ({ muestras, onEliminar, onActualizar }) => {
+  
+  // --- ESTADO LOCAL ---
   const [busqueda, setBusqueda] = useState('');
 
-  // Lógica de filtrado dinámico
+  // --- LÓGICA DE FILTRADO ---
   const filtradas = muestras.filter(m => 
     m.pacienteId.toLowerCase().includes(busqueda.toLowerCase()) ||
     m.id.toLowerCase().includes(busqueda.toLowerCase()) ||
@@ -22,7 +26,9 @@ export const ListaMuestras: React.FC<Props> = ({ muestras, onEliminar, onActuali
     m.descripcion.toLowerCase().includes(busqueda.toLowerCase())
   );
 
-  // Función para eliminar con confirmación
+  // --- CONTROLADORES DE ACCIÓN ---
+  
+  /* Dispara modal de confirmación antes de eliminar */
   const confirmarEliminar = (id: string) => {
     Swal.fire({
       title: '¿Eliminar registro?',
@@ -36,7 +42,7 @@ export const ListaMuestras: React.FC<Props> = ({ muestras, onEliminar, onActuali
     }).then((r) => r.isConfirmed && onEliminar(id));
   };
 
-  // Función para editar con interfaz GPath (ID Bloqueado)
+  /* Dispara modal de edición (ID de paciente bloqueado) */
   const editarMuestra = (m: Muestra) => {
     Swal.fire({
       title: '<span class="swal-title-gpath">Editar Registro</span>',
@@ -84,8 +90,11 @@ export const ListaMuestras: React.FC<Props> = ({ muestras, onEliminar, onActuali
     }).then(r => r.isConfirmed && onActualizar(m.id, r.value));
   };
 
+  // --- RENDERIZADO PRINCIPAL ---
   return (
     <div className="table-container">
+      
+      {/* CABECERA DE TABLA Y BUSCADOR */}
       <div className="table-header">
         <h3 className="table-title">Registros Activos</h3>
         <div className="search-box-internal">
@@ -100,6 +109,7 @@ export const ListaMuestras: React.FC<Props> = ({ muestras, onEliminar, onActuali
         </div>
       </div>
 
+      {/* CONTENIDO DE LA TABLA */}
       <div className="table-responsive">
         <table className="gpath-table">
           <thead>
