@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { FormularioMuestra } from './components/FormularioMuestra';
 import { ListaMuestras } from './components/ListaMuestras';
 import type { Muestra } from './types/muestra';
+import Swal from 'sweetalert2';
 import logoGpath from './assets/Logo-gpath.png';
 import './App.css';
 
@@ -27,6 +28,19 @@ function App() {
     };
     setMuestras([nueva, ...muestras]);
     setMostrarFormulario(false); 
+    Swal.fire({
+    title: '¡Muestra Registrada!',
+    text: 'El registro se ha guardado exitosamente en el sistema.',
+    icon: 'success',
+    confirmButtonColor: '#03045E', // Nuestro azul Crepúsculo
+    timer: 2500, // Se cierra sola en 2.5 segundos
+    timerProgressBar: true,
+    customClass: {
+      popup: 'modal-card-swal', // Reutilizamos la clase que ya definimos
+      title: 'form-title-swal'
+    }
+  });
+
   };
 
   // --- LÓGICA: Eliminar registro ---

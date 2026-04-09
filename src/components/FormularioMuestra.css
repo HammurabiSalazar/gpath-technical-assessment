@@ -1,4 +1,4 @@
-/* 1. FUENTES */
+/* 1. FUENTES Y VARIABLES */
 @font-face {
   font-family: 'Alphazet';
   src: url('../assets/fonts/Alphazet-Light.otf') format('opentype');
@@ -10,7 +10,6 @@
   font-weight: 600;
 }
 
-/* 2. VARIABLES */
 :root {
   --crepusculo: #03045E;
   --azul-verdoso: #0077B6;
@@ -19,26 +18,23 @@
   --cian-claro: #CAF0F8;
 }
 
-/* src/components/FormularioMuestra.css */
-
+/* 2. CONTENEDOR PRINCIPAL */
 .form-container {
-  /* Quitamos el fondo y la sombra para evitar el efecto de "doble caja" */
-  background: transparent; 
-  box-shadow: none;
-  padding: 10px 20px; /* Reducimos el padding interno */
+  background: transparent;
+  padding: 10px 20px;
   width: 100%;
+  font-family: 'Alphazet', sans-serif !important;
 }
 
 .form-title {
-  font-family: 'Alphazet', sans-serif !important;
   color: var(--crepusculo);
   text-align: center;
   font-size: 26px;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   font-weight: 600;
 }
 
-/* Estilos de los grupos de input (Material Design) */
+/* 3. GRUPOS Y ETIQUETAS FLOTANTES */
 .group {
   position: relative;
   margin-bottom: 35px;
@@ -54,16 +50,63 @@
   border-bottom: 1px solid var(--azul-escarchado);
   background: transparent;
   color: var(--crepusculo);
+  transition: 0.2s ease all;
 }
 
 .input:focus {
   outline: none;
 }
 
-/* El botón de guardado estilo GPath */
+/* Estilo de la etiqueta (Label) */
+.group label {
+  color: #999;
+  font-size: 16px;
+  font-weight: 300;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 0.3s ease all;
+}
+
+/* LÓGICA DE FLOTACIÓN: Al enfocar o al tener texto */
+.input:focus ~ label, 
+.input:not(:placeholder-shown) ~ label {
+  top: -20px;
+  font-size: 14px;
+  color: var(--turquesa-surf);
+  font-weight: 600;
+}
+
+/* 4. BARRA INFERIOR ANIMADA */
+.bar {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.bar:before, .bar:after {
+  content: '';
+  height: 2px;
+  width: 0;
+  bottom: 0px;
+  position: absolute;
+  background: var(--turquesa-surf);
+  transition: 0.3s ease all;
+}
+
+.bar:before { left: 50%; }
+.bar:after { right: 50%; }
+
+.input:focus ~ .bar:before, 
+.input:focus ~ .bar:after {
+  width: 50%;
+}
+
+/* 5. BOTÓN Y ERRORES */
 .form-button {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   background-color: var(--crepusculo);
   color: white;
   border: none;
@@ -81,150 +124,14 @@
   background-color: var(--azul-verdoso);
   box-shadow: 0 4px 12px rgba(3, 4, 94, 0.2);
 }
-select.input option {
-  background-color: #ffffff;
-  color: var(--crepusculo);
-  font-family: 'Alphazet', sans-serif;
-  padding: 10px;
-}
 
-.input:focus {
-  outline: none;
-}
-
-/* Etiqueta Flotante */
-/* 1. Reset de fuente para asegurar que todo use Alphazet */
-.form-container, 
-.form-container input, 
-.form-container select, 
-.form-container textarea, 
-.form-container label,
-.form-container button {
-  font-family: 'Alphazet', sans-serif !important;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* 2. Ajuste específico para las etiquetas (Labels) */
-.group label {
-  color: #999;
-  font-weight: 300; /* Light por defecto */
-  font-size: 16px;
-  position: absolute;
-  pointer-events: none;
-  left: 5px;
-  top: 10px;
-  transition: 0.2s ease all;
-}
-
-/* 3. Cuando la etiqueta sube, podemos cambiarla a SemiBold si queremos */
-.input:focus ~ label, 
-.input:valid ~ label {
-  top: -20px;
-  font-size: 14px;
-  color: var(--turquesa-surf);
-  font-weight: 600; /* Cambia a SemiBold al flotar */
-}
-
-/* Animación cuando hay foco o el input es válido */
-.input:focus ~ label, 
-.input:valid ~ label {
-  top: -20px;
-  font-size: 14px;
-  color: var(--turquesa-surf);
-  font-weight: 600;
-}
-
-/* La barra inferior animada */
-.bar {
-  position: relative;
+.error-msg {
+  color: #e63946;
+  font-size: 12px;
+  margin-top: 5px;
   display: block;
-  width: 100%;
 }
 
-.bar:before, .bar:after {
-  content: '';
-  height: 2px;
-  width: 0;
-  bottom: 0px;
-  position: absolute;
-  background: var(--turquesa-surf);
-  transition: 0.2s ease all;
-}
-
-.bar:before { left: 50%; }
-.bar:after { right: 50%; }
-
-.input:focus ~ .bar:before, 
-.input:focus ~ .bar:after {
-  width: 50%;
-}
-
-/* El resaltado (Highlight) */
-.highlight {
-  position: absolute;
-  height: 60%;
-  width: 100px;
-  top: 25%;
-  left: 0;
-  pointer-events: none;
-  opacity: 0.5;
-}
-
-.input:focus ~ .highlight {
-  animation: inputHighlighter 0.3s ease;
-}
-
-@keyframes inputHighlighter {
-  from { background: var(--turquesa-surf); }
-  to { width: 0; background: transparent; }
-}
-
-/* Botón adaptado */
-.form-button {
-  width: 100%;
-  background-color: var(--crepusculo);
-  color: white;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  font-family: 'Alphazet', sans-serif;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
-  text-transform: uppercase;
-}
-
-.form-button:hover {
-  background-color: var(--azul-verdoso);
-}
-/* ==========================================================
-   FORCE FONT ON SWEETALERT2 (Global Scope)
-   ========================================================== */
-
-/* Target a todo el contenedor de la alerta */
-.swal2-container {
-  font-family: 'Alphazet', sans-serif !important;
-}
-
-/* Target específico al título */
-.swal2-title {
-  font-family: 'Alphazet', sans-serif !important;
-  font-weight: 600 !important; /* SemiBold */
-  color: var(--crepusculo) !important;
-}
-
-/* Target al texto del cuerpo */
-.swal2-html-container {
-  font-family: 'Alphazet', sans-serif !important;
-  font-weight: 300 !important; /* Light */
-  color: var(--azul-verdoso) !important;
-}
-
-/* Target al botón de confirmación */
-.swal2-confirm {
-  font-family: 'Alphazet', sans-serif !important;
-  font-weight: 600 !important;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
+/* SWEETALERT CUSTOMS */
+.swal2-container { font-family: 'Alphazet', sans-serif !important; }
+.swal2-title { font-weight: 600 !important; color: var(--crepusculo) !important; }

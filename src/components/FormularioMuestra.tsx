@@ -1,51 +1,72 @@
-import React, { useState } from 'react';
-import { type TipoEstudio } from '../types/muestra';
+// src/components/FormularioMuestra.tsx
+import { useForm } from 'react-hook-form';
+import type { Muestra } from '../types/muestra';
 import './FormularioMuestra.css';
 
 interface Props {
-  onAgregar: (datos: { pacienteId: string; tipoEstudio: TipoEstudio; descripcion: string }) => void;
+  onAgregar: (datos: Omit<Muestra, 'id' | 'fechaRegistro'>) => void;
 }
 
-export const FormularioMuestra: React.FC<Props> = ({ onAgregar }) => {
-  const [pacienteId, setPacienteId] = useState('');
-  const [tipo, setTipo] = useState<TipoEstudio>('Biopsia');
-  const [descripcion, setDescripcion] = useState('');
+export const FormularioMuestra = ({ onAgregar }: Props) => {
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<Omit<Muestra, 'id' | 'fechaRegistro'>>();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onAgregar({ pacienteId, tipoEstudio: tipo, descripcion });
-    setPacienteId('');
-    setDescripcion('');
+  const onSubmit = (data: any) => {
+    onAgregar(data);
+    reset();
   };
 
   return (
-    <div className="form-container">
+    <form onSubmit={handleSubmit(onSubmit)} className="form-container">
       <h2 className="form-title">Registrar Muestra</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="group">
-          <input required type="text" className="input" value={pacienteId} onChange={e => setPacienteId(e.target.value)} />
-          <span className="bar"></span>
-          <label>ID del Paciente</label>
-        </div>
 
-        <div className="group">
-          <select className="input" value={tipo} onChange={e => setTipo(e.target.value as TipoEstudio)}>
-            <option value="Biopsia">Biopsia</option>
-            <option value="Citología">Citología</option>
-            <option value="Inmunohistoquímica">Inmunohistoquímica</option>
-          </select>
-          <span className="bar"></span>
-          <label className="active-label">Estudio</label>
-        </div>
+      {/* ID PACIENTE */}
+      <div className="group">
+        <input 
+          {...register("pacienteId", { 
+            required: "El ID es obligatorio", 
+            maxLength: { value: 15, message: "Máximo 15 caracteres" } 
+          })}
+          className="input"
+          placeholder=" " // Espacio vital para la animación
+        />
+        <span className="bar"></span>
+        <label className="label-gpath">ID del Paciente</label>
+        {errors.pacienteId && <span className="error-msg">{errors.pacienteId.message}</span>}
+      </div>
 
-        <div className="group">
-          <textarea required className="input" value={descripcion} onChange={e => setDescripcion(e.target.value)} />
-          <span className="bar"></span>
-          <label>Descripción</label>
-        </div>
+      {/* TIPO ESTUDIO */}
+      <div className="group">
+        <select 
+          {...register("tipoEstudio", { required: "Selecciona un estudio" })}
+          className="input"
+        >
+          <option value="" hidden></option> {/* Opción oculta para manejar el label */}
+          <option value="Biopsia">Biopsia</option>
+          <option value="Citología">Citología</option>
+          <option value="Inmunohistoquímica">Inmunohistoquímica</option>
+        </select>
+        <span className="bar"></span>
+        <label className="label-gpath">Tipo de Estudio</label>
+        {errors.tipoEstudio && <span className="error-msg">{errors.tipoEstudio.message}</span>}
+      </div>
 
-        <button type="submit" className="form-button">Guardar en Laboratorio</button>
-      </form>
-    </div>
+      {/* DESCRIPCIÓN */}
+      <div className="group">
+        <textarea 
+          {...register("descripcion", { 
+            required: "La descripción es necesaria",
+            maxLength: { value: 200, message: "Máximo 200 caracteres" }
+          })}
+          className="input textarea"
+          rows={3}
+          placeholder=" " // Espacio vital para la animación
+        />
+        <span className="bar"></span>
+        <label className="label-gpath">Descripción de la Muestra</label>
+        {errors.descripcion && <span className="error-msg">{errors.descripcion.message}</span>}
+      </div>
+
+      <button type="submit" className="form-button">Guardar en Laboratorio</button>
+    </form>
   );
 };

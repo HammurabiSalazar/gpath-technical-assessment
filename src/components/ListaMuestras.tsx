@@ -14,7 +14,7 @@ interface Props {
 export const ListaMuestras: React.FC<Props> = ({ muestras, onEliminar, onActualizar }) => {
   const [busqueda, setBusqueda] = useState('');
 
-  // Filtramos por ID, Paciente, Estudio o incluso por la Descripción
+  // Lógica de filtrado dinámico
   const filtradas = muestras.filter(m => 
     m.pacienteId.toLowerCase().includes(busqueda.toLowerCase()) ||
     m.id.toLowerCase().includes(busqueda.toLowerCase()) ||
@@ -22,6 +22,7 @@ export const ListaMuestras: React.FC<Props> = ({ muestras, onEliminar, onActuali
     m.descripcion.toLowerCase().includes(busqueda.toLowerCase())
   );
 
+  // Función para eliminar con confirmación
   const confirmarEliminar = (id: string) => {
     Swal.fire({
       title: '¿Eliminar registro?',
@@ -35,24 +36,51 @@ export const ListaMuestras: React.FC<Props> = ({ muestras, onEliminar, onActuali
     }).then((r) => r.isConfirmed && onEliminar(id));
   };
 
+  // Función para editar con interfaz GPath (ID Bloqueado)
   const editarMuestra = (m: Muestra) => {
     Swal.fire({
-      title: 'Editar Registro',
+      title: '<span class="swal-title-gpath">Editar Registro</span>',
       html: `
-        <div style="text-align: left;">
-          <label style="font-size: 14px; color: #0077B6;">ID Paciente</label>
-          <input id="swal-p" class="swal2-input" value="${m.pacienteId}">
-          <label style="font-size: 14px; color: #0077B6;">Descripción</label>
-          <textarea id="swal-d" class="swal2-textarea">${m.descripcion}</textarea>
+        <div class="swal-form-container">
+          <div class="swal-group">
+            <input id="swal-p" class="swal-input disabled-input" value="${m.pacienteId}" disabled placeholder=" ">
+            <span class="swal-bar"></span>
+            <label class="swal-label">ID del Paciente (No editable)</label>
+          </div>
+
+          <div class="swal-group">
+            <select id="swal-t" class="swal-input">
+              <option value="Biopsia" ${m.tipoEstudio === 'Biopsia' ? 'selected' : ''}>Biopsia</option>
+              <option value="Citología" ${m.tipoEstudio === 'Citología' ? 'selected' : ''}>Citología</option>
+              <option value="Inmunohistoquímica" ${m.tipoEstudio === 'Inmunohistoquímica' ? 'selected' : ''}>Inmunohistoquímica</option>
+            </select>
+            <span class="swal-bar"></span>
+            <label class="swal-label">Tipo de Estudio</label>
+          </div>
+
+          <div class="swal-group">
+            <textarea id="swal-d" class="swal-input swal-textarea" rows="3" placeholder=" ">${m.descripcion}</textarea>
+            <span class="swal-bar"></span>
+            <label class="swal-label">Descripción de la Muestra</label>
+          </div>
         </div>
       `,
-      focusConfirm: false,
       showCancelButton: true,
+      confirmButtonText: 'ACTUALIZAR',
+      cancelButtonText: 'CANCELAR',
       confirmButtonColor: '#03045E',
-      preConfirm: () => ({
-        pacienteId: (document.getElementById('swal-p') as HTMLInputElement).value,
-        descripcion: (document.getElementById('swal-d') as HTMLTextAreaElement).value
-      })
+      cancelButtonColor: '#808080',
+      customClass: {
+        popup: 'swal-modal-card',
+        confirmButton: 'swal-confirm-btn'
+      },
+      focusConfirm: false,
+      preConfirm: () => {
+        return {
+          tipoEstudio: (document.getElementById('swal-t') as HTMLSelectElement).value,
+          descripcion: (document.getElementById('swal-d') as HTMLTextAreaElement).value
+        };
+      }
     }).then(r => r.isConfirmed && onActualizar(m.id, r.value));
   };
 
@@ -76,11 +104,11 @@ export const ListaMuestras: React.FC<Props> = ({ muestras, onEliminar, onActuali
         <table className="gpath-table">
           <thead>
             <tr>
-              <th>ID SISTEMA</th>
+              <th>ID MUESTRA</th>
               <th>PACIENTE</th>
               <th>ESTUDIO</th>
-              <th>DESCRIPCIÓN</th> {/* Columna recuperada */}
-              <th>FECHA</th>
+              <th>DESCRIPCIÓN</th>
+              <th>FECHA DE REGISTRO</th>
               <th className="text-center">ACCIONES</th>
             </tr>
           </thead>
@@ -95,7 +123,6 @@ export const ListaMuestras: React.FC<Props> = ({ muestras, onEliminar, onActuali
                       {m.tipoEstudio}
                     </span>
                   </td>
-                  {/* Celda de descripción con puntos suspensivos si es muy larga */}
                   <td className="description-cell" title={m.descripcion}>
                     <div className="text-truncate-cell">{m.descripcion}</div>
                   </td>
@@ -112,9 +139,7 @@ export const ListaMuestras: React.FC<Props> = ({ muestras, onEliminar, onActuali
               ))
             ) : (
               <tr>
-                <td colSpan={6} className="text-center" style={{padding: '40px'}}>
-                  No se encontraron registros.
-                </td>
+                <td colSpan={6} className="text-empty">No se encontraron registros activos.</td>
               </tr>
             )}
           </tbody>
