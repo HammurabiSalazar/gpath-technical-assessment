@@ -19,47 +19,67 @@
   --cian-claro: #CAF0F8;
 }
 
+/* src/components/FormularioMuestra.css */
+
 .form-container {
-  background-color: #ffffff;
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(3, 4, 94, 0.1);
-  max-width: 400px;
-  margin: 50px auto;
-  font-family: 'Alphazet', sans-serif;
+  /* Quitamos el fondo y la sombra para evitar el efecto de "doble caja" */
+  background: transparent; 
+  box-shadow: none;
+  padding: 10px 20px; /* Reducimos el padding interno */
+  width: 100%;
 }
 
 .form-title {
+  font-family: 'Alphazet', sans-serif !important;
   color: var(--crepusculo);
-  font-weight: 600;
   text-align: center;
-  margin-bottom: 50px; /* Más espacio para que las etiquetas suban */
   font-size: 26px;
+  margin-bottom: 30px;
+  font-weight: 600;
 }
 
-/* 3. ESTILO DE GRUPO (Tu código mejorado) */
+/* Estilos de los grupos de input (Material Design) */
 .group {
   position: relative;
-  margin-bottom: 45px; 
+  margin-bottom: 35px;
 }
 
 .input {
-  font-family: 'Alphazet', sans-serif;
-  font-weight: 300;
+  font-family: 'Alphazet', sans-serif !important;
   font-size: 16px;
   padding: 10px 10px 10px 5px;
   display: block;
-  width: 100%; /* Adaptado para que sea responsivo */
+  width: 100%;
   border: none;
-  border-bottom: 1px solid var(--azul-verdoso);
+  border-bottom: 1px solid var(--azul-escarchado);
   background: transparent;
   color: var(--crepusculo);
-  box-sizing: border-box;
-  appearance: none;        /* Quita la flecha fea por defecto */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-color: transparent;
+}
+
+.input:focus {
+  outline: none;
+}
+
+/* El botón de guardado estilo GPath */
+.form-button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--crepusculo);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Alphazet', sans-serif !important;
+  font-weight: 600;
+  font-size: 16px;
   cursor: pointer;
+  transition: 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.form-button:hover {
+  background-color: var(--azul-verdoso);
+  box-shadow: 0 4px 12px rgba(3, 4, 94, 0.2);
 }
 select.input option {
   background-color: #ffffff;

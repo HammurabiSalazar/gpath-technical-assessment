@@ -1,0 +1,28 @@
+@font-face {
+  font-family: 'Alphazet';
+  src: url('./assets/fonts/Alphazet-Light.otf') format('opentype');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Alphazet';
+  src: url('./assets/fonts/Alphazet-SemiBold.otf') format('opentype');
+  font-weight: 600;
+}
+
+:root {
+  --crepusculo: #03045E;
+  --azul-verdoso: #0077B6;
+  --turquesa-surf: #00B4D8;
+  --azul-escarchado: #90E0EF;
+  --cian-claro: #CAF0F8;
+}
+
+* {
+  font-family: 'Alphazet', sans-serif !important;
+  box-sizing: border-box;
+}
+
+.sweet-font {
+  font-family: 'Alphazet', sans-serif !important;
+}

@@ -36,6 +36,16 @@ export const useMuestras = () => {
   setMuestras(muestras.filter(m => m.id !== id));              // Filtramos por id cada muestra, si el id no coincide con el que queremos eliminar, se queda en la lista, si coincide, se borra
 };
 
+
+  const actualizarMuestra = (id: string, datosActualizados: Partial<Muestra>) => {
+  const nuevasMuestras = muestras.map(m => 
+    m.id === id ? { ...m, ...datosActualizados } : m
+  );
+  setMuestras(nuevasMuestras);
+};
+
+// No olvides agregarla al return del hook:
+
    /*
     Devolvemos el estado de las muestras y las funciones
     para que puedan ser usadas en cualquier componente que importe este hook.
@@ -43,6 +53,7 @@ export const useMuestras = () => {
   return {
     muestras,
     agregarMuestra,
-    eliminarMuestra
+    eliminarMuestra,
+    actualizarMuestra
   };
 };

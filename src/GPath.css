@@ -1,0 +1,39 @@
+/* src/GPathTheme.css */
+@import url('path/to/fonts/Alphazet.css'); /* Reutilizamos tus fuentes */
+
+:root {
+  /* Tu paleta de colores corporativos (Imagen 1) */
+  --crepusculo: #03045E;
+  --azul-verdoso: #0077B6;
+  --turquesa-surf: #00B4D8;
+  --azul-escarchado: #90E0EF;
+  --cian-claro: #CAF0F8;
+}
+
+/* 1. Fondo Degradado Global */
+.gpath-app-background {
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--cian-claro) 0%, #ffffff 100%);
+  font-family: 'Alphazet', sans-serif !important;
+  color: var(--crepusculo);
+}
+
+/* 2. Estilo de las Olas (Separador) */
+.gpath-wave-divider {
+  width: 100%;
+  height: 100px;
+  background-image: url('path/to/wave-icon.svg'); /* Un SVG de la ola */
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-top: -50px; /* Para que la ola "suba" sobre la tarjeta */
+}
+
+/* 3. Tarjetas Blancas Premium */
+.gpath-card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(3, 4, 94, 0.08); /* Sombra suave con crepusculo */
+  padding: 40px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(144, 224, 239, 0.3); /* Un borde sutil azul escarchado */
+}

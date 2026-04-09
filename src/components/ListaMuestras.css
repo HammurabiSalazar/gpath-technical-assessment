@@ -1,0 +1,165 @@
+.table-container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(3, 4, 94, 0.05);
+  border: 1px solid var(--azul-escarchado);
+  margin-top: 30px;
+  overflow: hidden;
+  font-family: 'Alphazet', sans-serif;
+}
+
+/* Header de la Tabla */
+.table-header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--cian-claro);
+  border-bottom: 2px solid var(--azul-escarchado);
+}
+
+.table-title {
+  color: var(--crepusculo);
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Contenedor que agrupa la lupa y el input */
+.search-box-internal {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 250px; /* Ancho del buscador */
+}
+
+/* La pequeña lupa dentro del input */
+.search-icon-small {
+  position: absolute;
+  left: 12px;
+  color: var(--azul-verdoso);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+/* El campo de texto (Input) */
+.search-input-internal {
+  width: 100%;
+  padding: 8px 12px 8px 35px; /* Espacio extra a la izquierda para la lupa */
+  border: 2px solid var(--azul-escarchado);
+  border-radius: 20px; /* Bordes redondeados tipo píldora */
+  font-family: 'Alphazet', sans-serif !important;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+/* Efecto cuando el usuario hace clic para escribir */
+.search-input-internal:focus {
+  border-color: var(--azul-verdoso);
+  box-shadow: 0 0 8px rgba(0, 119, 182, 0.2);
+  width: 250px; /* Se expande un poquito al activarse */
+}
+
+/* Estilo para el placeholder (el texto "Buscar...") */
+.search-input-internal::placeholder {
+  color: #a0aec0;
+  font-weight: 300;
+}
+
+/* Estilos de la Tabla */
+.gpath-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.gpath-table th {
+  background-color: var(--crepusculo);
+  color: white;
+  padding: 15px;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.gpath-table td {
+  padding: 15px;
+  border-bottom: 1px solid var(--cian-claro);
+  color: var(--crepusculo);
+  font-weight: 300;
+  font-size: 15px;
+}
+
+.gpath-table tr:hover {
+  background-color: #f8fafc;
+}
+
+/* Badges para los tipos de estudio */
+.badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--azul-escarchado);
+  color: var(--azul-verdoso);
+}
+
+/* Botón de eliminar */
+.btn-delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  transition: transform 0.2s;
+}
+
+.btn-delete:hover {
+  transform: scale(1.2);
+}
+
+.table-footer {
+  padding: 15px 20px;
+  font-size: 13px;
+  color: var(--azul-verdoso);
+  background: var(--cian-claro);
+  font-weight: 300;
+}
+
+.text-center { text-align: center; }
+.font-bold { font-weight: 600; }
+.text-empty { text-align: center; padding: 40px !important; color: #999; }
+
+/* Estilo para el ID interno de la muestra */
+.id-cell small {
+  background-color: #f1f5f9;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #64748b;
+  font-family: monospace; /* Fuente de código para IDs */
+}
+
+/* Ajuste de columna de fecha */
+.date-cell {
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* Aseguramos que la descripción no empuje todo */
+.text-truncate {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* El resto de estilos (search-box, buttons, badges) se mantienen igual */
+.btn-icon {
+  font-size: 14px; /* Font Awesome se controla con font-size */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  /* ... resto de tus estilos de borde y hover ... */
+}
+

@@ -2,7 +2,6 @@
 Definimos los tipos de estudio exactos en una lista de opciones permitidas. 
  */
 export type TipoEstudio = 'Biopsia' | 'Citología' | 'Inmunohistoquímica';    // Solo estos 3 tipos de estudio definidos son seleccionables
-
 /*
 Estructura de campos que tendra cada muestra.
  */
