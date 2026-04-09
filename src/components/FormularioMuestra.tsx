@@ -27,7 +27,7 @@ export const FormularioMuestra = ({ onAgregar }: Props) => {
             maxLength: { value: 15, message: "Máximo 15 caracteres" } 
           })}
           className="input"
-          placeholder=" " // Espacio vital para la animación
+          placeholder=" " 
         />
         <span className="bar"></span>
         <label className="label-gpath">ID del Paciente</label>

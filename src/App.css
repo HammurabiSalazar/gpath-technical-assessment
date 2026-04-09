@@ -1,227 +1,150 @@
-/* VARIABLES DE COLOR GPATH */
+/* --- VARIABLES DE COLOR GPATH --- */
 :root {
   --crepusculo: #03045E;
   --azul-verdoso: #0077B6;
   --turquesa-surf: #00B4D8;
+  --azul-escarchado: #90E0EF;
+  --cian-claro: #CAF0F8;
   --gris-claro: #f4f4f4;
-  --gris-oscuro: #90e0ef;
 }
 
-/* ESTRUCTURA GENERAL */
+/* --- ESTRUCTURA GENERAL --- */
 .main-layout {
   min-height: 100vh;
   font-family: 'Alphazet', sans-serif;
   background-color: #ffffff;
 }
 
-/* HEADER DEL BOCETO */
+/* --- HEADER DINÁMICO --- */
 .top-nav {
   display: flex;
   height: 80px;
   border-bottom: 2px solid #ddd;
+  background-color: #fff;
 }
 
 .logo-box {
-  flex: 1;
   display: flex;
   align-items: center;
-  padding-left: 30px;
+  padding: 0 30px;
+  flex: 0 0 auto;
+}
+
+.logo-img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  margin-right: 15px;
 }
 
 .gray-info {
-  flex: 2;
-  background-color: var(--gris-oscuro);
-  color: white;
+  flex: 1;
+  background-color: var(--azul-escarchado);
+  color: var(--crepusculo);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
-  font-weight: bold;
-  /* Forma de trapezoide */
-  clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+  /* Trapezoide constante */
+  clip-path: polygon(80px 0, 100% 0, 100% 100%, 0% 100%);
+  transition: all 0.3s ease;
 }
 
-/* BARRA DE ACCIÓN */
+.header-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-text { font-size: 20px; font-weight: 600; letter-spacing: 1px; }
+.info-subtitle { font-size: 14px; font-weight: 300; opacity: 0.9; }
+
+/* --- CONTENEDOR Y BARRA DE ACCIÓN --- */
 .container {
-  max-width: 1625px;    /* Evita que se estire demasiado en monitores grandes */
-  margin: 0 auto;       /* Centra todo el bloque en la pantalla */
-  padding: 0 25px;      /* ¡ESTO ES LO IMPORTANTE! Agrega espacio a izquierda y derecha */
+  max-width: 1700px; 
+  width: 95%;        /* Asegura que en pantallas medianas ocupe casi todo el ancho */
+  margin: 0 auto;    /* Centra el bloque de contenido */
+  padding: 0 30px;   /* Reducimos el margen interno para ganar espacio horizontal */
+  transition: all 0.3s ease;
 }
 
-/* 2. La barra de acción: le damos espacio arriba y abajo */
 .action-bar {
   display: flex;
-  justify-content: space-between;
+  /* SEPARACIÓN DEFINITIVA: Título a la izquierda, botón a la derecha */
+  justify-content: space-between; 
   align-items: center;
-  margin-top: 20px;     /* Separa el título de la cabecera */
-  margin-bottom: 15px;  /* Separa el título de la tabla/contenido */
-  padding: 8px 0;      /* Un poco más de altura interna */
+  margin-top: 40px;
+  margin-bottom: 25px;
 }
 
-.title { font-size: 28px; color: #000; }
+.title { font-size: 28px; color: #000; font-weight: 600; margin: 0; }
 
-.btn-add {
-  background-color: #d9d9d9;
-  border: none;
-  padding: 10px 25px;
-  font-size: 18px;
+/* --- BOTÓN AÑADIR --- */
+.btn-add-simple {
+  border: 2px solid #24b4fb;
+  background-color: #24b4fb;
+  border-radius: 0.9em;
   cursor: pointer;
-  border-radius: 4px;
+  padding: 0.8em 1.2em;
+  transition: 0.2s;
+  color: #fff;
 }
 
-/* ÁREA DE TABLA (GRIS EN EL BOCETO) */
-.content-area {
-  background-color: #d9d9d9;
-  padding: 40px;
-  min-height: 400px;
-  border-radius: 4px;
-}
+.btn-add-simple span { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.btn-add-simple:hover { background-color: #0071e2; border-color: #0071e2; }
 
-/* MODAL DEL FORMULARIO */
-/* src/App.css */
-
+/* --- MODAL Y ANIMACIONES --- */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(3, 4, 94, 0.4); /* Azul crepúsculo con transparencia */
-  backdrop-filter: blur(4px);      /* Efecto de desenfoque al fondo */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(3, 4, 94, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
   z-index: 1000;
   animation: fadeIn 0.3s ease;
 }
 
 .modal-card {
-  background: white;
-  padding: 40px;
-  border-radius: 24px; /* Bordes más redondeados y modernos */
-  position: relative;
-  width: 90%;
-  max-width: 450px;
+  background: white; padding: 40px; border-radius: 24px;
+  position: relative; width: 90%; max-width: 450px;
   box-shadow: 0 20px 50px rgba(3, 4, 94, 0.15);
   animation: slideUp 0.4s ease;
 }
 
-/* Botón de cerrar (X) */
 .btn-close {
-  position: absolute;
-  top: 20px;
-  left: 20px; /* Lo ponemos a la izquierda como en tu boceto */
-  background: #f1f5f9;
-  border: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #64748b;
-  transition: 0.2s;
+  position: absolute; top: 20px; left: 20px;
+  background: #f1f5f9; border: none; width: 30px; height: 30px;
+  border-radius: 8px; cursor: pointer; color: #64748b;
 }
 
-.btn-close:hover {
-  background: #e2e8f0;
-  color: #0f172a;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes slideUp {
   from { transform: translateY(30px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
-/* Control del contenedor del logo */
 
-
-/* El "freno" para la imagen del logo */
-.logo-img {
-  height: 50px;       /* Ajusta este valor (40px o 60px) según tu gusto */
-  width: auto;         /* Mantiene la proporción original */
-  object-fit: contain; /* Asegura que la imagen no se deforme */
-  margin-right: 15px;  /* Espacio entre el logo y el texto "GPath Labs" */
-}
-
-/* Ajuste del texto al lado del logo */
-.logo-label {
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--crepusculo);
-  white-space: nowrap; /* Evita que el texto salte de línea */
-}
-/* 1. El contenedor del logo ahora solo ocupa el espacio que necesita */
-.logo-box {
-  display: flex;
-  align-items: center;
-  padding-left: 30px;
-  padding-right: 20px; /* Espacio mínimo antes de la diagonal */
-  flex: 0 0 auto;       /* ¡IMPORTANTE! Evita que crezca de más */
-}
-
-/* 2. El bloque gris ahora ocupa TODO el resto del espacio */
-.gray-info {
-  font-family: 'Alphazet', sans-serif !important; /* Forzamos la fuente */
-  flex: 1;              /* Toma todo el espacio sobrante */
-  background-color: var(--gris-oscuro);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  font-weight: bold;
+/* --- RESPONSIVIDAD APP --- */
+@media (max-width: 1200px) {
+  .container { padding: 0 20px; }
   
-  /* Mantenemos el trapezoide */
-  clip-path: polygon(80px 0, 100% 0, 100% 100%, 0% 100%); 
-  /* Nota: Cambié el 10% por 80px para que el ángulo sea constante */
-}
+  .top-nav { height: auto; flex-direction: column; }
+  
+  .logo-box { padding: 15px; justify-content: center; }
+  
+  .gray-info { 
+    width: 100%; padding: 15px 0;
+    clip-path: none; 
+  }
 
-.info-text {
-  font-family: 'Alphazet', sans-serif !important; /* Forzamos la fuente */
-  font-size: 20px;
-  font-weight: 600; /* Usará el archivo SemiBold */
-  letter-spacing: 1px;
-}
-
-.info-subtitle {
-  font-family: 'Alphazet', sans-serif !important; /* Forzamos la fuente */
-  font-size: 14px;
-  font-weight: 600; /* Usará el archivo Light */
-  opacity: 0.9;
-  margin-top: 2px;
-}
-
-/* Opcional: Aplicar a todo el bloque gris por si acaso */
-.header-text-container {
-  font-family: 'Alphazet', sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* BOTÓN DE AÑADIR PERSONALIZADO GPATH */
-.btn-add-simple {
-  border: 2px solid #24b4fb;
-  background-color: #24b4fb;
-  border-radius: 0.9em;
-  cursor: pointer;
-  padding: 0.8em 1.2em 0.8em 1em;
-  transition: all ease-in-out 0.2s;
-  font-size: 16px;
-  font-family: 'Alphazet', sans-serif !important;
-}
-
-.btn-add-simple span {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  font-weight: 600;
-  gap: 8px;
-}
-
-.btn-add-simple:hover {
-  background-color: #0071e2;
-  border-color: #0071e2;
+  /* MANTENEMOS FILA: Evita que el botón se pegue al título o se baje solo */
+  .action-bar { 
+    flex-direction: row; 
+    justify-content: space-between; 
+    flex-wrap: wrap; 
+    gap: 15px; 
+    align-items: center; 
+  }
 }

@@ -1,12 +1,23 @@
-/* ESTRUCTURA DE TABLA */
+/* ==========================================================
+   ESTRUCTURA DE TABLA Y CONTENEDORES
+   ========================================================== */
 .table-container {
   background: white;
-  border-radius: 16px;
+  border-radius: 19px;
   box-shadow: 0 10px 30px rgba(3, 4, 94, 0.05);
   border: 1px solid var(--azul-escarchado);
   margin-top: 10px;
-  overflow: hidden;
+  /* Permitimos que el contenedor hijo maneje el desbordamiento */
+  overflow: visible; 
   font-family: 'Alphazet', sans-serif;
+}
+
+/* Contenedor para scroll horizontal en pantallas pequeñas */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto; 
+  -webkit-overflow-scrolling: touch;
+  border-radius: 0 0 16px 16px;
 }
 
 .table-header {
@@ -16,13 +27,18 @@
   align-items: center;
   background-color: var(--cian-claro);
   border-bottom: 2px solid var(--azul-escarchado);
+  border-radius: 16px 16px 0 0;
+  background-clip: padding-box;
 }
 
 .table-title { color: var(--crepusculo); font-weight: 600; margin: 0; }
 
-/* BUSCADOR INTERNO */
+/* ==========================================================
+   BUSCADOR INTERNO
+   ========================================================== */
 .search-box-internal { position: relative; display: flex; align-items: center; width: 250px; }
 .search-icon-small { position: absolute; left: 12px; color: var(--azul-verdoso); font-size: 14px; }
+
 .search-input-internal {
   width: 100%;
   padding: 8px 12px 8px 35px;
@@ -35,22 +51,44 @@
 }
 .search-input-internal:focus { border-color: var(--azul-verdoso); width: 250px; }
 
-/* ESTILOS DE CELDAS */
-.gpath-table { width: 100%; border-collapse: collapse; }
-.gpath-table th { background-color: var(--crepusculo); color: white; padding: 15px; font-size: 13px; text-transform: uppercase; text-align: left; }
+/* ==========================================================
+   ESTILOS DE CELDAS Y TABLA
+   ========================================================== */
+.gpath-table { 
+  width: 100%; 
+  border-collapse: collapse; 
+  /* Ancho mínimo para evitar que las columnas se aplasten */
+  min-width: 850px; 
+}
+
+.gpath-table th { 
+  background-color: var(--crepusculo); 
+  color: white; 
+  padding: 15px; 
+  font-size: 13px; 
+  text-transform: uppercase; 
+  text-align: left; 
+  /* Evita que los títulos se corten o salten de línea */
+  white-space: nowrap; 
+}
+
 .gpath-table td { padding: 15px; border-bottom: 1px solid var(--cian-claro); color: var(--crepusculo); }
+
 .description-cell { max-width: 250px; }
 .text-truncate-cell { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; color: #666; }
 
-/* BADGES */
+/* ==========================================================
+   BADGES Y BOTONES DE ACCIÓN
+   ========================================================== */
 .badge { padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; background: var(--azul-escarchado); color: var(--azul-verdoso); }
 
-/* ACCIONES */
 .btn-icon { background: none; border: none; cursor: pointer; margin: 0 5px; color: #64748b; transition: 0.2s; }
 .btn-edit:hover { color: var(--azul-verdoso); }
 .btn-delete:hover { color: #e63946; }
 
-/* === ESTILOS PARA EL MODAL DE EDICIÓN (SWEETALERT) === */
+/* ==========================================================
+   MODAL DE EDICIÓN (SWEETALERT2)
+   ========================================================== */
 .swal-modal-card { border-radius: 24px !important; padding: 30px !important; }
 .swal-title-gpath { color: var(--crepusculo); font-weight: 600; font-size: 24px; }
 .swal-form-container { text-align: left; padding: 10px 5px; }
