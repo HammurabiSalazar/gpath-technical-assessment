@@ -8,9 +8,9 @@ Este proyecto fue desarrollado como solución al **Reto 1: Formulario de Registr
 
 ---
 
-## ✨ Características Principales
+## Características Principales
 
-### Requisitos del Reto ✅
+### Requisitos del Sistema ✅
 
 - **Formulario de Registro**: Interfaz intuitiva para ingreso de datos de muestras
   - Campo ID del Paciente (máximo 15 caracteres)
@@ -30,29 +30,6 @@ Este proyecto fue desarrollado como solución al **Reto 1: Formulario de Registr
   - Información clara y organizada
   - Botón para eliminar registros
 
-### Funcionalidades Extra (Bonus) 🎁
-
-- **Editar Registros**: Modificar cualquier muestra existente
-  - Reutilización del formulario en modo edición
-  - Confirmación de cambios exitosos
-
-- **Modales Interactivos**: `SweetAlert2` para mejor UX
-  - Confirmación visual de operaciones (registro, eliminación, actualización)
-  - Avisos y alertas elegantes
-
-- **Clean Code**: Arquitectura modular y escalable
-  - Componentes reutilizables (`FormularioMuestra`, `ListaMuestras`)
-  - Interfaces TypeScript bien definidas
-  - Tipos estrictos en todo el código
-  - Separación clara de responsabilidades
-
-- **Estilos Profesionales**: CSS organizado con propiedades individuales
-  - Diseño responsivo
-  - Interfaz moderna y accesible
-  - Coherencia visual en toda la aplicación
-
----
-
 ## 🛠️ Tecnologías Utilizadas
 
 | Tecnología | Versión | Propósito |
@@ -64,8 +41,6 @@ Este proyecto fue desarrollado como solución al **Reto 1: Formulario de Registr
 | **SweetAlert2** | 11.26.24 | Modales interactivos |
 | **Lucide React** | 1.7.0 | Iconos |
 | **FontAwesome** | 7.2.0 | Iconografía adicional |
-| **ESLint** | 9.39.4 | Linting de código |
-
 ---
 
 ## 📁 Estructura del Proyecto
@@ -116,24 +91,6 @@ src/
    npm run dev
    ```
    La aplicación estará disponible en `http://localhost:5173`
-
-### Comandos Disponibles
-
-```bash
-# Desarrollo
-npm run dev
-
-# Compilar para producción
-npm run build
-
-# Verificar el código (linting)
-npm run lint
-
-# Vista previa de producción
-npm run preview
-```
-
----
 
 ## 📊 Flujo de Uso
 
@@ -197,27 +154,10 @@ Los datos se almacenan en **LocalStorage** del navegador bajo la clave `gpath_mu
 
 ---
 
-## 🔧 Decisiones Técnicas
-
-1. **React + TypeScript**: Código type-safe y fácil de mantener
-2. **react-hook-form**: Librería ligera y eficiente para formularios
-3. **LocalStorage**: Solución simple sin back-end requerido
-4. **SweetAlert2**: UX moderna y feedback visual claro
-5. **Componentes Modulares**: Facilita escalabilidad futura
-6. **CSS por Propiedades**: Código más legible y mantenible
-
 ---
 
-## ⚠️ Limitaciones Conocidas
 
-- Los datos solo persisten en el navegador (no en servidor)
-- No hay autenticación de usuarios
-- No hay validación de duplicados de IDs
-- Sin búsqueda o filtrado avanzado
-
----
-
-## 🙏 Reflexión Final
+## Reflexión Final
 
 Este proyecto representa mi aproximación al desarrollo web profesional aplicando principios de **Clean Code**, **type-safety** y **user experience**. Se ha intentado balance entre funcionalidad, claridad del código y facilidad de mantenimiento.
 
