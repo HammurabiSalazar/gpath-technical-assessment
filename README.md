@@ -1,4 +1,4 @@
-# 🔬 GPath - Sistema de Registro y Gestión de Muestras de Laboratorio
+# GPath - Sistema de Registro y Gestión de Muestras de Laboratorio
 
 ## Descripción General
 
